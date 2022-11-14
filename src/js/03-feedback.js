@@ -8,16 +8,18 @@ const refs = {
 };
 
 refs.form.addEventListener('submit', onFormSubmit);
-refs.form.addEventListener('input', event => {
-  // console.log(event.target.name);
-  // console.log(event.target.value);
+refs.form.addEventListener('input', throttle(onFormInput, 500));
+
+function onFormInput(event) {
+  console.log(event.target.name);
+  console.log(event.target.value);
   // console.dir('dir', event.target);
 
   formData[event.target.name] = event.target.value;
   // console.log('formData', formData);
 
   localStorage.setItem(LOCAL_KEY, JSON.stringify(formData));
-});
+}
 
 populateTextarea();
 
